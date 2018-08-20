@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://versionschema.org/xmlns"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsv="http://www.w3.org/2007/XMLSchema-versioning" xsv:minVersion="1.1"
+    xmlns:vs="http://versionschema.org/xmlns" elementFormDefault="qualified"
+    attributeFormDefault="unqualified" xml:lang="en" version="Experimental.0 {VSchemaInDev.0}">
+
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en" xml:space="preserve">
+            Version Schema - Experimental.1 {VSchemaInDev.1}.
+            Copyright and license: http://versionschema.org/LICENSE.
+            Specification: http://versionschema.org/
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <!-- This file defines one root element (VersionSchema) and supporting cast of types and groups -->
+
+    <!-- 
+        Simple types in alphabetical order. 
+    -->
+
+    <xsd:simpleType name="assurance_T" final="#all">
+
+        <!-- TODO {CBF5A103-9140-4910-AD5E-607DBD3B0284}: Convert to complex type and provide mechanism for users to annotate each assurance. -->
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en" xml:space="preserve">
+                Applied quality assurance practices.
+                Applies to the product on any change in the version representation (i.e., a version bump of any kind).
+                There can be as many of these as actually apply to your product release gates.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:string">
+
+            <xsd:enumeration value="undefined">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when no other assurances are proffered.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="reviewed">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when reviews are performed by experts, other than the changers, for all changes in each published release.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="static_analysis_reviewed">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when output from a static analyzer is reviewed and acted on for each published release.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="third_party_audit">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when a third party autdior or standards entity revews all changes for each published release.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="tested">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when some testing has been performed for each published release.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="changed_features_tested">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when tests cover the changed features for each published release.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="50_percent_coverage_tested">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when 50% or more of product (code paths) is tested for each published release.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="75_percent_coverat_tested">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when 75% or more of product (code paths) is tested for each published release.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="100_percent_coverage_tested">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when 100% or more of product (code paths) is tested for each published release.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="third_party_tested">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Used when an independent auditor or standards entity runs compliance tests for each published release. 
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+<!-- Template            
+            <xsd:enumeration value="">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">                        
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+-->
+        </xsd:restriction>
+
+    </xsd:simpleType>
+
+    <xsd:simpleType name="changeRule_T" final="#all">
+        
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Rules that specify why a version field is incremented or changed.
+            </xsd:documentation>
+        </xsd:annotation>
+        
+        <!-- Change rules in alphabetical order -->
+        
+        <xsd:restriction base="xsd:string">
+            
+            <xsd:enumeration value="any_changes">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        The field is changed/increment for all changes of any kind.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="arbitrary">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        The field is changed/incremented randomly or at the whim of bipedal wetware. 
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="back_compat">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        The field is changed/incremented only for backwards compatible changes.
+                        Can be used as a modifier, for instance documentation_new_section may or may 
+                        not be backwards compatible. Applying back_compat to the same field refines 
+                        the rule set. Cannot be combined with any other rule that implies a breaking 
+                        change.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="constant">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        The field is a constant, relative to the rest of the fields. It cannot be
+                        changed independantly, but it can change if any other field in the version
+                        changes. TBD: Whether and how to tie allowance of change to other named fields?
+                        <!-- TODO {ABF2FD34-1AB6-462E-29D5-518D0D7503A7}: See TBD above. -->
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="fixes">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Changes that fix bugs, refactoring, clarifying documentation, etc., 
+                        without introducing new features or API changes.  
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="new_features">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        The field is changed/incremented only for addition of new features 
+                        (modification of an API) without breaking backwards compatibility.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="simple">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Any simple change. Can be combined with any rule that does not imply
+                        high complexity.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="complex">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Any complex change. Can be combined with any rule that does not imply
+                        low complexity.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="documentation_new_section">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        New section(s) added to documentation.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="documentation_new_paragraph">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        New paragraph(s) added to documentation.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="documentation_refinement">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Refinements to documentation.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="not_back_compat">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The field is changed/incremented only for none backwards compatible changes.
+                        Used as a modifier, for instance documentation_new_section may or may not be
+                        backwards compatible. Applying not_back_compat to the same field refines the
+                        rule set. Cannot be combined with back_compat or any other rule that implies 
+                        a non-breaking change.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+            <xsd:enumeration value="visual_changes">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        The field is changed/incremented for changes to images (icons, pictographs, etc) 
+                        or the visual layout of the content.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            
+        </xsd:restriction>
+        
+    </xsd:simpleType>
+
+    <xsd:simpleType name="characters_T">
+
+        <!-- TODO {C541A77A-D882-41E9-602D-DC6A616A19BC}: Annotation -->
+        <!-- TODO {C1E6D8F7-0DA3-4FBB-1D48-30F8AFEE19B8}: This should be a complex type so we can use expressions or lists of characters. -->
+        <xsd:restriction base="xsd:string"/>
+
+    </xsd:simpleType>
+
+    <xsd:simpleType name="dataFormat_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en" xml:space="preserve">
+                Defines the data format. (string, XML/JSON/YAML).
+                Only string is supported at this time.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="string"/>
+            <xsd:enumeration value="XML"/>
+            <xsd:enumeration value="JSON"/>
+            <xsd:enumeration value="YAML"/>
+        </xsd:restriction>
+
+    </xsd:simpleType>
+
+    <xsd:simpleType name="delim_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                List of delimiter characters.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:string"/>
+
+    </xsd:simpleType>
+
+<!--
+    <xsd:simpleType name="docref_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Any URI pointing to human readable documentation regarding the parent element.
+                If the URI is not fully qualified, it is appended to the content of the canonicalReference attribute of the VersionSchema element.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:anyURI"/>
+
+    </xsd:simpleType>
+-->
+
+    <xsd:simpleType name="fieldtype_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                The type of the field being defined.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="alhpa">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        The field type is pure alpha characters.                       
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="alphanumeric">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        The field type is mixed alpha and numeric characters.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+            <xsd:enumeration value="enumeration">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">                        
+                        The field type defines enumerations.
+                    </xsd:documentation>
+                </xsd:annotation>                             
+            </xsd:enumeration>
+            <xsd:enumeration value="numeric">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">                        
+                        The field type is pure numeric.
+                    </xsd:documentation>
+                </xsd:annotation>                
+            </xsd:enumeration>
+        </xsd:restriction>
+
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="range_T" final="#all">
+
+        <!-- TODO {379E6FDE-98D3-4EE7-E5AB-7F5EA6A1239B}: Annotations -->
+        <!-- TODO {E93FFC74-F167-49A4-8222-69E6D9B219A3}: Add pattern/restrictions for range notation.
+            Range should restrict the format to LowChar-HighChar, or use the set notation form [i,e), (e,i], [i,i], (e,e).                  
+        -->
+
+        <xsd:restriction base="xsd:string"/>
+
+    </xsd:simpleType>
+
+    <!-- 
+        Complex types in alphabetical order 
+    -->
+
+    <xsd:complexType name="allowedstatetransistions_T" final="#all">
+        
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en" xml:space="preserve">
+                Lists the kinds of transitions that field value can pass through.
+                TBD: Syntax/semantic definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:group ref="vs:ruleelementsGroup"/>
+            </xsd:choice>
+        </xsd:sequence>
+
+        <xsd:attribute name="allowParallel" type="xsd:boolean" default="true">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    When false, transitions represent a single track through the defined state machine.
+                    When true (default), work may commense in or more phases simultaneously.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+    
+    <xsd:complexType name="all_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                All of the child elements, must be present in the version string or record, in any order.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:group ref="vs:baseelementsGroup"/>
+                <xsd:group ref="vs:controlGroup"/>
+                <xsd:group ref="vs:ruleelementsGroup"/>
+            </xsd:choice>
+        </xsd:sequence>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="ancestorSchema_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Declare ancestor schemas and transition rules. Allows seperate prerelease
+                and release schemas to be related to each other by some simple rules.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <!-- TODO {FC722C21-5F03-44C3-CBB9-A2A90252B790} Expand on this! -->
+
+        <xsd:attribute name="schemaURI" type="xsd:anyURI" use="required">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    A URI pointing to the ancestor.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="anyof_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Any of the child elements, can be present in the version string or record, in any order.
+                There must be at least one.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:group ref="vs:baseelementsGroup"/>
+                <xsd:group ref="vs:controlGroup"/>
+                <xsd:group ref="vs:ruleelementsGroup"/>
+            </xsd:choice>
+        </xsd:sequence>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="anywhitespace_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation>
+                A place holder for any quantity of any kind of whitepspace, including new-line characters.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:attribute name="maxNewLines" type="xsd:unsignedShort" default="1">
+            <xsd:annotation>
+                <xsd:documentation>
+                    Maximum number of new-lines allowed in a whitespace block. Default is 1.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attribute name="maxChars" type="xsd:unsignedShort" default="65535">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    Maximum number of non-newline type characters allowed in a whitespace block. Default 65535 (max).
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="field_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Designates a section of the version string or record that represents a named/referencable field.
+                Fields contain a type attribute and any of the elements in the vs:baseelementsGroup, vs:controlGroup 
+                and vs:ruleelementsGroup.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:group ref="vs:baseelementsGroup"/>
+                <xsd:group ref="vs:controlGroup"/>
+                <xsd:group ref="vs:ruleelementsGroup"/>
+            </xsd:choice>
+        </xsd:sequence>
+
+        <xsd:attribute name="name" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    The field name. Must be unique among its siblings in its parent element.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attribute name="inheritRules" type="xsd:boolean" default="true">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    When true, rules are inherited from the first outer node they can be found in.
+                    No rules applied if not found in the chain of containing outer elements.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attribute name="type" type="vs:fieldtype_T" use="required"> </xsd:attribute>
+        
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="literal_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Defines the presense of a string literal within the vesion string or record.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="caseSensitive" type="xsd:boolean" default="true"/>
+                <xsd:attribute name="isExpression" type="xsd:boolean" default="false"/>
+                <!--<xsd:attributeGroup ref="vs:minmaxGroup"/>-->
+                <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+        
+    </xsd:complexType>
+    
+    <xsd:complexType name="oneof_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                One and only one of the child elements may be present in the version string or record.                
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:group ref="vs:baseelementsGroup"/>
+                <xsd:group ref="vs:controlGroup"/>
+                <xsd:group ref="vs:ruleelementsGroup"/>
+            </xsd:choice>
+        </xsd:sequence>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="optional_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Declares an optional segment of the version string or record.                
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:group ref="vs:baseelementsGroup"/>
+                <xsd:group ref="vs:controlGroup"/>
+                <xsd:group ref="vs:ruleelementsGroup"/>
+            </xsd:choice>
+        </xsd:sequence>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="sequence_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Declares an ordered list of elements.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:group ref="vs:baseelementsGroup"/>
+                <xsd:group ref="vs:controlGroup"/>
+                <xsd:group ref="vs:ruleelementsGroup"/>
+            </xsd:choice>
+        </xsd:sequence>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="signedIntegerTransition_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Defines a transition type for signed integer numeric fields.
+                Useful for count to zero from +/- starting point or anything else that needs a signed integer transition.
+                You must provide a value for this type, no default is provided.
+            </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:attribute name="changeBy" type="xsd:int"/>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="transition_T">
+        
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Defines allowed transition states.
+            </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:attribute name="name" type="xsd:string" use="optional">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    Optional name.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        
+        <xsd:attribute name="to" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    Names the state transition target state.
+                </xsd:documentation>
+            </xsd:annotation>            
+        </xsd:attribute>
+        
+        <xsd:attribute name="from" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    Names the state transition source state.
+                </xsd:documentation>
+            </xsd:annotation>            
+        </xsd:attribute>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+    
+    <xsd:complexType name="type_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en" xml:space="preserve">
+                Use to define types (essentially macros) to reference.
+                Required for recursive definitions and also saves some space and typing.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:group ref="vs:baseelementsGroup" minOccurs="0"/>
+                <xsd:group ref="vs:controlGroup"/>
+            </xsd:choice>
+        </xsd:sequence>
+
+        <xsd:attribute name="name" type="xsd:NCName" use="optional"/>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="typeref_T" final="#all">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Use to reference a defined type.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:attribute name="ref" type="xsd:NCName" use="optional">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    The type name refered to.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attribute name="name" type="xsd:string" use="optional">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    The name to use at the element scope in which type is referenced.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <xsd:complexType name="unsignedIntegerTransition_T" final="#all">
+        
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Defines a transition type for unsigned integer numeric fields.
+            </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:attribute name="changeBy" type="xsd:nonNegativeInteger" default="1"/>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+    
+    <xsd:complexType name="versionmetatag_T" final="#all">
+
+        <!-- Except for the sake of completeness, this element will be of little value.
+             It is retained for version schemes that require the VersionMeta tag, but that's not
+             enforceable until tooling has discovered the tag and pulled the referenced schema.
+             I suppose a strict mode could simply reject the version string if after reading
+             through the tag, we find that it's not placed correctly?
+        -->
+
+        <xsd:annotation>
+            <xsd:documentation>
+                Defines that a VersionMeta tag appears at the specified location in the vesion string or record.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:attribute name="prefix" type="xsd:string" fixed="https//versionschema.org/Schemas/">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    Defines default prefix used for all VersionMeta tags that do not begin with "https://" or "http://".
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+
+        <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        
+    </xsd:complexType>
+
+    <!-- Some groups used to define types/attributes -->
+
+    <xsd:attributeGroup name="annotationsAttributeGroup">
+
+        <xsd:attribute name="uri" type="xsd:anyURI">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    A fully qualified URL referencing human readable documentation for the containing element.
+                </xsd:documentation>                
+            </xsd:annotation>    
+        </xsd:attribute>
+        
+        <xsd:attribute name="fragment" type="xsd:anyURI">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    A URN that, when appended to the VersionSchema's canonicalReference content, yields the human readable documentation for the containing element. 
+                </xsd:documentation>
+            </xsd:annotation>            
+        </xsd:attribute>
+        
+    </xsd:attributeGroup>
+
+<!--
+    <xsd:attributeGroup name="minmaxAttributesGroup">
+
+        <xsd:attribute name="minOccurs" type="xsd:positiveInteger" default="1"/>
+        <xsd:attribute name="maxOccurs" type="xsd:positiveInteger" default="1"/>
+
+    </xsd:attributeGroup>
+-->
+    
+    <xsd:group name="controlGroup">
+
+        <xsd:choice>
+            <xsd:element name="All" type="vs:all_T"/>
+            <xsd:element name="AnyOf" type="vs:anyof_T"/>
+            <xsd:element name="OneOf" type="vs:oneof_T"/>
+            <xsd:element name="Optional" type="vs:optional_T"/>
+            <xsd:element name="Sequence" type="vs:sequence_T"/>
+            <xsd:element name="VersionMetaTag" type="vs:range_T"/>
+        </xsd:choice>
+
+    </xsd:group>
+
+    <xsd:group name="baseelementsGroup">
+        <xsd:choice>
+            <xsd:element name="AnyWhiteSpace" type="vs:anywhitespace_T"/>
+            <xsd:element name="Characters" type="vs:characters_T"/>
+            <xsd:element name="Delim" type="vs:delim_T"/>
+            <!--<xsd:element name="DocRef" type="vs:docref_T"/>-->
+            <xsd:element name="Field" type="vs:field_T"/>
+            <!--<xsd:element name="FieldType" type="vs:fieldtypeType" minOccurs="1"/>-->
+            <xsd:element name="AllowedStateTransitions" type="vs:allowedstatetransistions_T"/>
+            <xsd:element name="Literal" type="vs:literal_T"/>
+            <xsd:element name="Range" type="vs:range_T"/>
+            <xsd:element name="TypeRef" type="vs:typeref_T"/>
+        </xsd:choice>
+    </xsd:group>
+
+    <xsd:group name="ruleelementsGroup">
+        <xsd:choice>
+            <xsd:element name="ChangeRule" type="vs:changeRule_T"/>
+            <xsd:element name="EnumerationTransition" type="vs:transition_T"/>
+            <xsd:element name="SignedIntegerTransition" type="vs:signedIntegerTransition_T"/>
+            <xsd:element name="UnsignedIntegerTransition" type="vs:unsignedIntegerTransition_T"/>
+        </xsd:choice>
+    </xsd:group>
+
+    <!-- The one and only global element. -->
+    <xsd:element name="VersionSchema" abstract="false">
+
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en" xml:space="preserve">
+                Top-level container for everything in a version schema definition file. 
+                There MUST be exactly one VersionSchema element per schema file. 
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+
+            <xsd:sequence>
+                <xsd:element name="AncestorSchema" type="vs:ancestorSchema_T" minOccurs="0" maxOccurs="1"/>
+                <xsd:element name="DataFormat" type="vs:dataFormat_T" minOccurs="1" maxOccurs="1"/>
+                <xsd:element name="Assurance" type="vs:assurance_T" minOccurs="1" maxOccurs="unbounded"/>
+                <xsd:sequence>
+                    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+                        <xsd:element name="Type" type="vs:type_T" minOccurs="0" maxOccurs="unbounded"/>
+                        <xsd:group ref="vs:baseelementsGroup"/>
+                        <xsd:group ref="vs:controlGroup"/>
+                        <xsd:group ref="vs:ruleelementsGroup"/>
+                    </xsd:choice>
+                </xsd:sequence>
+            </xsd:sequence>
+
+            <xsd:attribute name="name" type="xsd:string" use="required"/>
+            <xsd:attribute name="canonicalReference" type="xsd:anyURI" use="required"/>
+
+            <xsd:attribute name="reportDefectsTo" type="xsd:anyURI" use="optional"/>
+            <xsd:attribute name="organizationName" type="xsd:string" use="optional"/>
+            <xsd:attribute name="organizationURI" type="xsd:anyURI" use="optional"/>
+
+        </xsd:complexType>
+
+    </xsd:element>
+
+</xsd:schema>
