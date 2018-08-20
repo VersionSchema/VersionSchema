@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VersionSchema
+    name="VSchemaUnderDev.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://versionschema.org/schemas ../versionschema.experimental.0.xsd"
+    xmlns="http://versionschema.org/xmlns"
+    xmlns:vs="http://versionschema.org/xmlns"
+    canonicalReference="http://versionschema.org/Schemas/Docs/VSchemaInDev.0.html"
+    >
+
+    <DataFormat>string</DataFormat>
+    <Assurance>reviewed</Assurance>
+    
+    <Sequence fragment="#fields">
+
+        <Field name="DevelopmentPhase" type="enumeration">
+            <ChangeRule>arbitrary</ChangeRule>            
+            <OneOf>
+                <Literal caseSensitive="false">Abandoned</Literal>
+                <Literal caseSensitive="false">Experimental</Literal>
+                <Literal caseSensitive="false">Prototype</Literal>
+                <Literal caseSensitive="false">ReleaseCandidate</Literal>
+                <Literal caseSensitive="false">Transitioned</Literal>
+            </OneOf>
+            <AllowedStateTransitions>
+                <EnumerationTransition from="Abandoned" to="Experimental"/>
+                <EnumerationTransition from="Experimental" to="Abandoned"/>
+                <EnumerationTransition from="Experimental" to="Prototype"/>
+                <EnumerationTransition from="Prototype" to="Abandoned"/>
+                <EnumerationTransition from="Prototype" to="Experimental"/>
+                <EnumerationTransition from="ReleaseCandidate" to="Transitioned"/>
+            </AllowedStateTransitions>
+        </Field>
+
+        <Delim>.</Delim>
+        
+        <Field name="PhaseCounter" type="numeric">
+            <ChangeRule>any_changes</ChangeRule>
+            <AllowedStateTransitions>
+                <UnsignedIntegerTransition/>
+            </AllowedStateTransitions>
+        </Field>
+
+        <AnyWhiteSpace/>
+
+        <VersionMetaTag>{VSchemaUnderDev.0}</VersionMetaTag>
+
+    </Sequence>
+
+</VersionSchema>
+
+

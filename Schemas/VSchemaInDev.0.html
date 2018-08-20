@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta name="author" content="Joseph W Donahue" />
+  <meta name="description" content="The version schema used in the development VersionSchema." />
+  <link rel="canonical" href="https://versionmeta.org/" />
+  <title>VSchemaInDev.0</title>
+</head>
+
+<body>
+
+  <h1>
+    VSchemaInDev.0 VersionSchema Description<br/>
+    <small>
+      <small>Version: Experimental.0 {VSchemaInDev.0}</small>
+    </small>
+  </h1>
+
+  <h2>About</h2>
+
+  <p>
+  The VersionSchema.org project adopted this example for initial specification, XSD and XML documents.
+  The VersionMeta tag is {VSchemaInDev.0} and is a "standard" schema provided by VersionSchema.org.
+  It is a phase + counter type of version schema that defines three linear phases and a single counter for releases within a phase.
+  </p>
+
+  <p>
+  Note that this scheme is intended for specifications and schemas only.
+  It is not intended to be used to track tooling or other software developement.
+  </p>
+
+  <h2 id="fields">Fields</h2>
+
+  <h3 id="developmentphase">DevelopmentPhase</h3>
+
+  <p>
+  Enumeration type with five possible phases. 
+  The change rules for this field are arbitrary (decided by wetware).
+  This is not a waterfall, work may progress in multiple phases, except Abondanded, simultaneously.
+  </p>
+
+  <ul>
+    <li>
+      <div id="experimental">
+        <em>Experimental</em>
+      </div>
+      <p>
+      The initial phase for all work is the <em>Experimental</em> phase.
+      Changes made in this phase can range from totally breaking to inconsequential bug fixes.
+      Work products in this phase may transition to <em>Abanoned</em> or <em>Prototype</em> phase at any time.
+      Except for testing and experimental tooling, no dependencies should ever be taken on <em>Experimental</em> work products.
+      </p>
+    </li>
+    <li>
+      <em>Abandoned</em>
+      <p>
+      When it is decided that a work product is not worthy of further effort, it will be marked <em>Abandoned</em>.
+      While unlikely, a work product may be transitioned from <em>Abandoned</em> back to <em>Experimental</em> at any time.
+      It is likely that {VSchemaInDev.0} will be abandoned as TBD's are resolved.
+      </p>
+    </li>
+    <li>
+      <em>Prototype</em>
+      <p>
+      Work products are more stable and generally directed toward predefined goals in the <em>Prototype</em> phase.
+      Breaking changes are still allowed, but require concensus that they are required.
+      Work products may be transitioned back to the experimental phase for any reason at any time.
+      While highly unlikely, a work product in the <em>Prototype</em> phase, may be transitioned to the <em>Abandoned</em> state at any time.
+      </p>
+    </li>
+    <li>
+      <em>ReleaseCandidate</em>
+      <p>
+      <em>ReleaseCandidate</em>s are highly stable. 
+      Only the most essential bug fixes are allowed in the <em>ReleaseCandidate</em> phase and those require concensus.
+      Work products will remain in <em>ReleaseCandidate</em> phase, for at least twenty (20) working days, to allow stakeholders sufficient time for comments.
+      The VersionSchema.org project is committed to transition all <em>ReleaseCandidate</em> work products to the <em>Transitioned</em> phase within one calendar year of entering the <em>ReleaseCandidate</em> phase.
+      </p>
+    </li>
+    <li>
+      <em>Transitioned</em>
+      <p>
+      The work product has <em>Transitioned</em> into the maintenance phase.
+      All future versions of the work product will be tracked under an as-yet undefined schema.
+      </p>
+    </li>
+  </ul>
+
+  <h4>Allowed State Transitions</h4>
+
+  <ul>
+    <li>
+      <em>Abandoned->Experimental</em>
+      <p>
+      Work products that have been <em>Abandoned</em> may be transitioned back to the <em>Experimental</em> phase.
+      </p>
+    </li>
+    <li>
+      <em>Experimental->Abandoned</em>
+      <p>
+      <em>Experimental</em> work products may be <em>Abandoned</em> at any time for any reason.
+      </p>
+    </li>
+    <li>
+      <em>Experimental->Prototype</em>
+      <p>
+      <em>Experimental</em> work products may be transitioned to <em>Prototype</em> when they are deemed to be complete and stable enough, that they are unlikely to regress in the future.
+      </p>
+    </li>
+    <li>
+      <em>Prototype->Abandoned</em>
+      <p>
+      <em>Prototype</em>s can be <em>Abandoned</em> at any time for any reason.
+      </p>
+    </li>
+    <li>
+      <em>Prototype->Experimental</em>
+      <p>
+      <em>Prototype</em>s can regress to <em>Experimental</em> at any time.
+      This can happen, if the work product becomes blocked by unforseen issues that cannot be resolved without breaking changes, and concensus cannot be reached among the stakeholders.
+      </p>
+    </li>
+    <li>
+      <em>Prototype->ReleaseCandidate</em>
+      <p>
+      <em>Prototypes</em>s can be transitioned to <em>ReleaseCandidate</em> status when the project and stakeholders agree that the work product is useful, stable and worth committing to a long period of maintenance.
+      </p>
+    </li>
+    <li>
+      <em>ReleaseCandidate->Transitioned</em>
+      <p>
+      <em>ReleaseCandidate</em>s MUST eventually transition.
+      When concensus is reached that a release candidate should be moved into maintainance, it will be released unchanged, except for internal version strings and release notes, if any, with a version string of <em>Transitioned.0 {VSchemaInDev.<b>TBD</b>}</em>, where <b>TBD</b> is either 0, 1 or whatever VSchemaInDev.*.xml schema we're on at that point.
+      </p>
+    </li>
+  </ul>
+
+  <h3>PhaseCounter</h3>
+
+  <p>
+  Used to track releases within a phase.
+  Starts at zero when the work product first transitions to the stage, then increments there-after.
+  When the work product transitions from a higher phase to a lower one, the phase counter for that phase continues counting from where-ever it was when work had previously transitioned out.
+  When a work product transitions back to the higher phase, that counter picks-up where it was left off.
+  </p>
+
+  <h2>Assurances</h2>
+  <p>
+  All releases will have been subject to some kind of review prior to publishing.
+  </p>
+
+  <!-- TODO {8B48FFFA-2880-4451-4CFF-96AE8FE4C6AC}: Need standard page navigation "device". -->
+  <small><a href="../index.html">Home</a></small>
+
+</body>
+
+</html>

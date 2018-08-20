@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <!-- Notes to editors:
+          * Set tabs to 2 spaces.
+          * Never use tab characters.
+          * Remove all trailing white-space from lines.
+          * Some vertical white-space is good, too much is bad.
+          * Paragraphs should have one sentance per line!
+          * Use TODO's very sparingly and always include a link to the relevant issue(s)
+            or project task(s).
+  -->
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="author" content="Joseph W Donahue" />
+    <meta name="description" content="Version Meta spec and web site" />
+    <link rel="canonical" href="https://versionmeta.org/" />
+    <title>Version Schema {Experimental.0}</title>
+  </head>
+  <body>
+    <!-- TODO {D9707538-3AA2-4E4B-18F3-2F1E4FA677B8}: CSS! -->
+    <div id="product-tag">
+      <h1>Version Schema</h1>
+      <div id="version-tag">
+       Version: Experimental.0 {VSchemaInDev.0}</div>
+      </div>
+    <h2 id="summary">Summary</h2>
+
+    <p>
+    Version Schema is a proposed standard schema for declaring the syntax and semantics of any version string, or (asperationally) XML, JSON or YAML record containing version data.
+    The current focus is on defining version string syntax and semantics.
+    A version schema is meant to convey; both human, and machine readable, information regarding the syntax and business rules (semantics), applied to any version data that includes a <a href="https://versionmeta.org/">Version Meta tag</a>. 
+    This project is an early work-in-progress and no standard schema has been settled on.
+    We have one experimental <a href="versionschema.experimental.0.xsd"> XML schema</a> and some <a href="ExampleSchemas.html">example Version Shemas</a> based on that XSD ready for comment. 
+    A GitHub project has been setup to <a href="https://github.com/VersionSchema/VersionSchema">track artifacts</a>, <a href="https://github.com/VersionSchema/VersionSchema/projects">progress</a>, and <a href="https://github.com/VersionSchema/VersionSchema/issues">take feedback</a>.
+    </p>
+
+    <p>
+    The subtitle and browser window/tab title of this page; both contain a URI within curly braces that is a <a href="https://versionmeta.org/">Version Meta tag</a>, that points to the <a href="Schemas/VSchemaInDev.0.xml">Version Schema in use</a> for versioning the current VersionSchema XSD file. A full description of that schema can be read <a href="Schemas/VSchemaInDev.0.html">here</a>.
+    </p>
+
+    <h2 id="introduction">Introduction</h2>
+
+    <p>
+    A version schema is any XML file containing only elements defined in the official VersionSchema XSD file.
+    The current version under development is <a href="versionschema.experimental.0.xsd">versionschema.experimental.0.xsd</a>. 
+    Tooling to process VersionSchema's is a work-in-progress, but not currently ready for any kind of review.
+    </p>
+
+    <p></p> <!-- Required to get a proper heading out of the browsers on my system. -->
+    <h3 id="past_present_and_future">Past Present and Future</h3>
+
+    <p>
+    Probably the best known and oldest artifacts that version numbers are applied to, are books.
+    Publishers call them revisions, and they have employed variations of at least several schemes; ranging from dates, a single integer (rev 1, rev2, etc), through "decimal" revisions (1, 1.2, etc) to more complicated schemes incorporating digits, letters of the alphabet and other symbols.
+    In the realm of computer software, the earliest version schemes often followed whatever scheme the engineering department used to version their circuit board designs and other products.
+    </p>
+
+    <p>
+    The current best practice for software, is to use <a href="https://semver.org/">SemVer</a>, but few actually use it correctly and most would prefer to have it modified to also accept any one of a dozen variations.
+    Part of the problem has to do with the variety of things that must be versioned.
+    SemVer is tied, by definition, to API's and any associated packages containing implementations of those API's.
+    While nobody can blame the keepers of the SemVer standard for their righfully narrow focus, the universe contains a much wider array of artifacts that require versioning of one kind or another. 
+    In addition, there's a wide range of common practices with regard to the prerelease and build meta tags in use and there is no common method for conveying the semantic details embedded in those practices.
+    </p>
+
+    <p>
+    VersionSchema represents a possible next step in the evolution of version strings.
+    If successful, we will no longer be locked into suedo-standards that are barely more than least common denominators.
+    In the near future, you should be able to use a range of version schemas for different purposes, such as internal test releases, early adoptor (flight testing), wider public releases, etc.
+    Use one schema for your documents or art work and and another for your software.
+    In every case, the same set of tooling can be used in your build/publish pipelines, no matter what semantics are applied to the version strings in use.
+    </p>
+
+    <p></p> <!-- Required to get a proper heading out of the browsers on my system. -->
+    <h3 id="goals">Goals</h3>
+
+    <ul>
+      <li>Human readable description of version string syntax and business rules.</li>
+      <li>Machine readable description of version string syntax and business rules.</li>
+      <li>Reasonably compact version schema format that can be described in a standard schema language (XSD).</li>
+      <li>Allow description of any kind of version string, for any use.</li>
+      <li>Simple tooling and libraries, support all schemas.</li>
+      <li>Provide a set of version schemas that reflect the top five or ten common practices.</li>
+      <li>Not just for software.</li>
+      <!--
+      <li></li>
+      -->
+    </ul>
+
+    <p></p> <!-- Required to get a proper heading out of the browsers on my system. -->
+    <h3 id="aspirations">Aspirations</h3>
+
+    <ul>
+      <li>Automatic regex generation from version schema.</li>
+      <li>Automatic state machine generation from version schema.</li>
+      <li>Simple tooling assists developers in generating schemas matching their development models.
+        <ul>
+          <li>From state machine diagrams.</li>
+          <li>Integrated schema editor.</li>
+        </ul>
+      </li>    
+      <li>Automated generation of test oracles.</li>
+    </ul>
+
+    <p></p> <!-- Required to get a proper heading out of the browsers on my system. -->
+    <h2></h2>
+
+  </body>
+</html>

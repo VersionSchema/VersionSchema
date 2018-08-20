@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VersionSchema
+    name="SimpleEnumeration"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://versionschema.org/ ../versionschema.experimental.0.xsd"
+    xmlns="http://versionschema.org/xmlns"
+    xmlns:vs="http://versionschema.org/xmlns"
+    canonicalReference="http://versionschema.org/SimpleCounter.html"
+    >
+    
+    <DataFormat>string</DataFormat>
+    <Assurance>reviewed</Assurance>
+    <Sequence>
+        <Field name="Tag" type="enumeration">
+            <OneOf>
+                <Literal caseSensitive="false">Experimental</Literal>
+                <Literal caseSensitive="false">Prototype</Literal>
+                <Literal caseSensitive="false">ReadyForReview</Literal>
+                <Literal caseSensitive="false">Published</Literal>
+            </OneOf>
+
+            <AllowedStateTransitions allowParallel="true">
+                <EnumerationTransition from="Experimental" to="Prototype"/>
+                <EnumerationTransition from="Prototype" to="ReadyForReview"/>
+                <EnumerationTransition from="ReadyForReview" to="Prototype"/>
+                <EnumerationTransition from="ReadyForReview" to="Published"/>
+            </AllowedStateTransitions>
+        </Field>
+    </Sequence>
+    
+</VersionSchema>
+
+
