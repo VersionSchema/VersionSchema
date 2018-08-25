@@ -10,6 +10,7 @@
     
     <DataFormat>string</DataFormat>
     <Assurance>reviewed</Assurance>
+    <State>draft</State>
     <Sequence>
         <Field name="Tag" type="enumeration">
             <OneOf>

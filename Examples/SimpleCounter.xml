@@ -11,6 +11,7 @@
     
     <DataFormat>string</DataFormat>
     <Assurance>undefined</Assurance>
+    <State>draft</State>
     <Field name="Counter" type="numeric">
         <ChangeRule>any_changes</ChangeRule>
         <UnsignedIntegerTransition/>

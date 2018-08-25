@@ -304,6 +304,44 @@
     </xsd:simpleType>
 -->
 
+    <xsd:simpleType name="documentState_T" final="#all">
+        
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en" xml:space="preserve"> 
+                Indicates whether the schema is a draft, final or deprecated version.
+            </xsd:documentation>            
+        </xsd:annotation>
+        
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="draft">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        The schema document is subject to revision.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="final">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Except for this state tag, the document is no longer subject to revision.
+                        The docuement cannot be changed, except to modify the state to deprecated.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="deprecated">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        The schema is deprecated.
+                        The document is no longer subject to revision of any kind.
+                        New dependencies should not be taken on this document.
+                        The document may be removed from public feeds.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+        
+    </xsd:simpleType>
+    
     <xsd:simpleType name="fieldtype_T" final="#all">
 
         <xsd:annotation>
@@ -827,6 +865,7 @@
                 <xsd:element name="AncestorSchema" type="vs:ancestorSchema_T" minOccurs="0" maxOccurs="1"/>
                 <xsd:element name="DataFormat" type="vs:dataFormat_T" minOccurs="1" maxOccurs="1"/>
                 <xsd:element name="Assurance" type="vs:assurance_T" minOccurs="1" maxOccurs="unbounded"/>
+                <xsd:element name="State" type="vs:documentState_T" minOccurs="1" maxOccurs="1"/>
                 <xsd:sequence>
                     <xsd:choice minOccurs="1" maxOccurs="unbounded">
                         <xsd:element name="Type" type="vs:type_T" minOccurs="0" maxOccurs="unbounded"/>
