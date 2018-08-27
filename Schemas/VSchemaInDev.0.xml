@@ -10,7 +10,7 @@
 
     <DataFormat>string</DataFormat>
     <Assurance>reviewed</Assurance>
-    <State>draft</State>
+    <State>final</State> <!-- We'll move on to VSchemaInDev1.xml if needed -->
     
     <Sequence fragment="#fields">
 
