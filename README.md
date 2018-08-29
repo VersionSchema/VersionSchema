@@ -10,3 +10,10 @@ Official web site is [http://VersionSchema.org/](http://VersionSchema.org/).
 - Anyone who owns an existing, documented version scheme.
 - Anyone who owns or is a major influencer/contributor to software packaging/publishing tools.
 - Anyone with any tool that reads and acts on any kind of version string.
+
+# Project Status
+
+## 2018-08
+- Initial site has been posted.
+- versionschema.experimental.0.xsd is completed.
+- Started vesionschema.experimental.next.xsd for development of next release.
