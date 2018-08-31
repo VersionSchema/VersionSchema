@@ -3,8 +3,11 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsv="http://www.w3.org/2007/XMLSchema-versioning" xsv:minVersion="1.1"
     xmlns:vs="http://versionschema.org/xmlns" elementFormDefault="qualified"
-    attributeFormDefault="unqualified" xml:lang="en" version="Experimental.0 {VSchemaInDev.0}">
-
+    attributeFormDefault="unqualified" xml:lang="en" version="Experimental.0 {VSchemaInDev.0}"
+    >
+    
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema" schemaLocation="http://www.w3.org/2001/XMLSchema.xsd"/>
+    
     <xsd:annotation>
         <xsd:documentation xml:lang="en" xml:space="preserve">
             Version Schema - Experimental.1 {VSchemaInDev.1}.
@@ -304,6 +307,52 @@
     </xsd:simpleType>
 -->
 
+    <xsd:simpleType name="documentState_T" final="#all">
+        
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en" xml:space="preserve"> 
+                Indicates whether the schema is a draft, living document, final or deprecated version.
+            </xsd:documentation>            
+        </xsd:annotation>
+        
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="draft">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        The schema document is subject to revision.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="permanentDraft">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        The schema document is a "living document", subject to change foreever.
+                        The state tag can never be changed.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="final">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        Except for this state tag, the document is no longer subject to revision.
+                        The docuement cannot be changed, except to modify the state to deprecated.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="deprecated">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en" xml:space="preserve">
+                        The schema is deprecated.
+                        The document is no longer subject to revision of any kind.
+                        New dependencies should not be taken on this document.
+                        The document may be removed from public feeds.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+        
+    </xsd:simpleType>
+    
     <xsd:simpleType name="fieldtype_T" final="#all">
 
         <xsd:annotation>
@@ -346,16 +395,36 @@
     </xsd:simpleType>
     
     <xsd:simpleType name="range_T" final="#all">
-
-        <!-- TODO {379E6FDE-98D3-4EE7-E5AB-7F5EA6A1239B}: Annotations -->
-        <!-- TODO {E93FFC74-F167-49A4-8222-69E6D9B219A3}: Add pattern/restrictions for range notation.
-            Range should restrict the format to LowChar-HighChar, or use the set notation form [i,e), (e,i], [i,i], (e,e).                  
-        -->
-
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en" xml:space="preserve">
+                <!-- TODO {379E6FDE-98D3-4EE7-E5AB-7F5EA6A1239B}: Annotations -->
+                <!-- TODO {E93FFC74-F167-49A4-8222-69E6D9B219A3}: Add pattern/restrictions for range notation.
+                    Range should restrict the format to LowChar-HighChar, or use the set notation form [i,e), (e,i], [i,i], (e,e).                  
+                -->
+            </xsd:documentation>
+        </xsd:annotation>
         <xsd:restriction base="xsd:string"/>
-
     </xsd:simpleType>
 
+<!--
+    <xsd:simpleType name="allNNI">
+        <xsd:annotation>
+            <xsd:documentation>for maxOccurs</xsd:documentation>
+        </xsd:annotation>
+        <xsd:union memberTypes="xsd:nonNegativeInteger">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:NMTOKEN">
+                    <xsd:enumeration value="unbounded"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+    
+    <xsd:attributeGroup name="minmaxAttributesGroup">
+        <xsd:attribute name="minOccurs" type="xsd:nonNegativeInteger" default="1"/>
+        <xsd:attribute name="maxOccurs" type="vs:allNNI" default="1"/>
+    </xsd:attributeGroup>
+-->
     <!-- 
         Complex types in alphabetical order 
     -->
@@ -449,6 +518,7 @@
         </xsd:sequence>
 
         <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
+        <xsd:attributeGroup ref="xsd:occurs"/>
         
     </xsd:complexType>
 
@@ -597,7 +667,8 @@
         </xsd:sequence>
 
         <xsd:attributeGroup ref="vs:annotationsAttributeGroup"/>
-        
+        <xsd:attributeGroup ref="xsd:occurs"/>
+
     </xsd:complexType>
 
     <xsd:complexType name="signedIntegerTransition_T" final="#all">
@@ -663,7 +734,7 @@
 
         <xsd:sequence>
             <xsd:choice>
-                <xsd:group ref="vs:baseelementsGroup" minOccurs="0"/>
+                <xsd:group ref="vs:baseelementsGroup"/>
                 <xsd:group ref="vs:controlGroup"/>
             </xsd:choice>
         </xsd:sequence>
@@ -764,12 +835,12 @@
         </xsd:attribute>
         
     </xsd:attributeGroup>
-
 <!--
     <xsd:attributeGroup name="minmaxAttributesGroup">
 
-        <xsd:attribute name="minOccurs" type="xsd:positiveInteger" default="1"/>
-        <xsd:attribute name="maxOccurs" type="xsd:positiveInteger" default="1"/>
+        <xsd:attribute name="minOccurs" type="xsd:nonNegativeInteger" default="1"/>
+        <xsd:attribute name="maxOccurs" type="xsd:nonNegativeInteger" default="1"/>
+        <xsd:attribute name="maxOccursUnbounded" type="xsd:boolean" default="false"/>
 
     </xsd:attributeGroup>
 -->
@@ -792,9 +863,7 @@
             <xsd:element name="AnyWhiteSpace" type="vs:anywhitespace_T"/>
             <xsd:element name="Characters" type="vs:characters_T"/>
             <xsd:element name="Delim" type="vs:delim_T"/>
-            <!--<xsd:element name="DocRef" type="vs:docref_T"/>-->
             <xsd:element name="Field" type="vs:field_T"/>
-            <!--<xsd:element name="FieldType" type="vs:fieldtypeType" minOccurs="1"/>-->
             <xsd:element name="AllowedStateTransitions" type="vs:allowedstatetransistions_T"/>
             <xsd:element name="Literal" type="vs:literal_T"/>
             <xsd:element name="Range" type="vs:range_T"/>
@@ -827,6 +896,7 @@
                 <xsd:element name="AncestorSchema" type="vs:ancestorSchema_T" minOccurs="0" maxOccurs="1"/>
                 <xsd:element name="DataFormat" type="vs:dataFormat_T" minOccurs="1" maxOccurs="1"/>
                 <xsd:element name="Assurance" type="vs:assurance_T" minOccurs="1" maxOccurs="unbounded"/>
+                <xsd:element name="State" type="vs:documentState_T" minOccurs="1" maxOccurs="1"/>
                 <xsd:sequence>
                     <xsd:choice minOccurs="1" maxOccurs="unbounded">
                         <xsd:element name="Type" type="vs:type_T" minOccurs="0" maxOccurs="unbounded"/>

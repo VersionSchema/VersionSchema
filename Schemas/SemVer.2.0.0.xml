@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VersionSchema 
+    name="SemVer.2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://versionschema.org/Schemas ../versionschema.experimental.next.xsd"
+    xmlns="http://versionschema.org/xmlns"
+    xmlns:vs="http://versionschema.org/xmlns"
+    canonicalReference="https://semver.org/spec/v2.0.0.html"
+    >
+    
+    <DataFormat>string</DataFormat>
+    <Assurance>undefined</Assurance>
+    <State>draft</State>
+
+    <Type name="MajorZeroVersionTriple_T">
+        <Sequence>
+            <Field name="MAJOR" type="numeric" fragment="spec-item-4">
+                <ChangeRule>constant</ChangeRule>
+                <Literal>0</Literal>
+            </Field>
+            <Delim>.</Delim>
+            <Field name="MINOR" type="numeric" fragment="spec-item-4">
+                <ChangeRule>arbitrary</ChangeRule>
+                <UnsignedIntegerTransition/>
+            </Field>
+            <Delim>.</Delim>
+            <Field name="PATCH" type="numeric" fragment="spec-item-4">
+                <ChangeRule>arbitrary</ChangeRule>
+                <UnsignedIntegerTransition/>
+            </Field>
+        </Sequence>
+    </Type>
+    
+    <Type name="PrereleaseVersionTriple_T">
+        <Sequence>
+            <Field name="MAJOR" type="numeric" fragment="spec-item-8">
+                <ChangeRule>arbitrary</ChangeRule>
+                <UnsignedIntegerTransition/>
+            </Field>
+            <Delim>.</Delim>
+            <Field name="MINOR" type="numeric" fragment="spec-item-7">
+                <ChangeRule>arbitrary</ChangeRule>
+                <UnsignedIntegerTransition/>
+            </Field>
+            <Delim>.</Delim>
+            <Field name="PATCH" type="numeric" fragment="spec-item-6">
+                <ChangeRule>arbitrary</ChangeRule>
+                <UnsignedIntegerTransition/>
+            </Field>
+        </Sequence>
+    </Type>
+    
+    <Type name="ReleaseVersionTriple_T">
+        <Sequence>
+            <Field name="MAJOR" type="numeric" fragment="spec-item-8">
+                <ChangeRule>not_back_compat</ChangeRule>
+                <ChangeRule>arbitrary</ChangeRule>
+                <UnsignedIntegerTransition/>
+            </Field>
+            <Delim>.</Delim>
+            <Field name="MINOR" type="numeric" fragment="spec-item-7">
+                <ChangeRule>new_features</ChangeRule>
+                <ChangeRule>fixes</ChangeRule>
+                <ChangeRule>back_compat</ChangeRule>
+                <UnsignedIntegerTransition/>
+            </Field>
+            <Delim>.</Delim>
+            <Field name="PATCH" type="numeric" fragment="spec-item-6">
+                <ChangeRule>fixes</ChangeRule>
+                <ChangeRule>back_compat</ChangeRule>
+                <UnsignedIntegerTransition/>
+            </Field>
+        </Sequence>
+    </Type>
+
+    <Type name="Prerelease_T">
+        <Optional>
+            <Field name="Prerelease" type="alphanumeric" fragment="spec-item-9">
+                <ChangeRule>arbitrary</ChangeRule>
+                <Delim>-</Delim>
+                <OneOf>
+                    <Literal>0</Literal>
+                    <Sequence>
+                        <Range>[1,9]</Range>
+                        <Range>[0-9]</Range>
+                    </Sequence>
+                    <Sequence maxOccurs="unbounded">
+                        <Range>[a,z][A,Z][0,9][-,]</Range>
+                    </Sequence>
+                </OneOf>
+                <Sequence minOccurs="0" maxOccurs="unbounded">
+                    <Delim>.</Delim>
+                    <OneOf>
+                        <Literal>0</Literal>
+                        <Sequence>
+                            <Range>[1,9]</Range>
+                            <Range>[0-9]</Range>
+                        </Sequence>
+                        <Sequence maxOccurs="unbounded">
+                            <Range>[a,z][A,Z][0,9][-,]</Range>
+                        </Sequence>
+                    </OneOf>
+                </Sequence>
+            </Field>
+        </Optional>
+    </Type>
+
+    <Type name="BuildMeta_T">
+        <Optional>
+            <Field name="BuildMeta" type="alphanumeric" fragment="spec-item-10">
+                <Delim>+</Delim>
+                <Range>[a,z][A,Z][0,9][-,]</Range>
+            </Field>
+        </Optional>
+    </Type>
+
+    <Type name="Prerelase_T">
+        <Optional>
+            <TypeRef name="Prerelease" ref="Prerelease_T"/>
+        </Optional>
+    </Type>
+    
+    <Type name="PrerleasePlusMetaTags_T">
+        <Sequence>
+            <TypeRef name="Prerelease" ref="Prerelease_T"/>
+            <TypeRef name="BuildMeta" ref="BuildMeta_T"/>                    
+        </Sequence>
+    </Type>
+    
+    <!-- Put it all together -->
+    <OneOf>
+        <Sequence>
+            <TypeRef ref="MajorZeroVersionTriple_T"/>
+            <TypeRef ref="PrerleasePlusMetaTags_T"/>
+        </Sequence>
+        <Sequence>
+            <TypeRef ref="ReleaseVersionTriple_T"/>
+            <TypeRef ref="BuildMeta_T"/>
+        </Sequence>
+        <Sequence>
+            <TypeRef ref="PrereleaseVersionTriple_T"/>
+            <TypeRef ref="PrerleasePlusMetaTags_T"/>
+        </Sequence>
+    </OneOf>
+    
+</VersionSchema>

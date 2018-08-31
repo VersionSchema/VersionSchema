@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="20.1">
     <meta>
-        <filters directoryPatterns="" filePatterns="VersionSchema.xpr,*.vpj,LICENSE" positiveFilePatterns="" showHiddenFiles="false"/>
+        <filters directoryPatterns="" filePatterns="VersionSchema.xpr,*.vpj,*.vtg,*.vpw,*.vpwhist,LICENSE,.gitignore" positiveFilePatterns="" showHiddenFiles="false"/>
         <options/>
     </meta>
     <projectTree name="VersionSchema.xpr">
