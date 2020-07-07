@@ -16,7 +16,15 @@
     <meta name="description" content="Version Meta spec and web site" />
     <link rel="canonical" href="https://versionmeta.org/" />
     <title>Version Schema {Experimental.0}</title>
+
+    <style>
+    body {
+        color:black;
+        background-color:lightgrey;
+    }
+    </style>
   </head>
+
   <body>
     <!-- TODO {D9707538-3AA2-4E4B-18F3-2F1E4FA677B8}: CSS! -->
     <div id="product-tag">
@@ -37,7 +45,8 @@
     </p>
 
     <p>
-    The subtitle and browser window/tab title of this page; both contain a URI within curly braces that is a <a href="https://versionmeta.org/">Version Meta tag</a>, that points to the <a href="Schemas/VSchemaInDev.0.xml">version schema in use</a> for versioning the current VersionSchema XSD file. 
+    The version listed near the top of this page is an example of a well-known <a href="https://versionmeta.org/">Version Meta tag</a>, that tooling can use to lookup the named schema (service location is TBD).
+    If/when such a servce exists, it would point to the <a href="Schemas/VSchemaInDev.0.xml">version schema in use</a> for versioning the current VersionSchema XSD file. 
     A full description of that schema can be read <a href="Schemas/VSchemaInDev.0.html">here</a>.
     </p>
 
@@ -196,7 +205,23 @@
     # {https://X.org/SimpleCounter}
     </pre>
 
-    <small>Last updated 2018-08-29 12:38 UTC</small>
+    <p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" class="license-text">
+      <a rel="cc:attributionURL" href="https://versionschema.org/">
+        <span rel="dct:title">VersionSchema</span>
+      </a> 
+      by 
+      <a rel="cc:attributionURL" href=" www.odonahue.com">
+        <span rel="cc:attributionName">Joseph W Donahue</span>
+      </a>
+      CC BY 4.0
+      <a href="https://creativecommons.org/licenses/by/4.0">
+<!--        <img style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg/?ref=chooser-v1" />
+        <img  style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg/?ref=chooser-v1" /> -->
+        <img style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+      </a>
+    </p>
+
+    <small>Last updated 2020-07-06 07:04 UTC</small>
 
   </body>
 </html>

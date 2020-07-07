@@ -44,7 +44,7 @@
 
         <AnyWhiteSpace/>
 
-        <VersionMetaTag>{VSchemaUnderDev.0}</VersionMetaTag>
+        <VersionMetaTag>{VSchemaInDev.0}</VersionMetaTag>
 
     </Sequence>
 
