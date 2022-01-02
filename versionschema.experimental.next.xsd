@@ -11,8 +11,8 @@
     <xsd:annotation>
         <xsd:documentation xml:lang="en" xml:space="preserve">
             Version Schema - Experimental.1 {VSchemaInDev.1}.
-            Copyright and license: http://versionschema.org/LICENSE.
-            Specification: http://versionschema.org/
+            Copyright and license: https://versionschema.org/LICENSE.
+            Specification: https://versionschema.org/
         </xsd:documentation>
     </xsd:annotation>
 
@@ -60,7 +60,7 @@
             <xsd:enumeration value="third_party_audit">
                 <xsd:annotation>
                     <xsd:documentation xml:lang="en" xml:space="preserve">
-                        Used when a third party autdior or standards entity revews all changes for each published release.
+                        Used when a third party autdior or standards entity reviews all changes for each published release.
                     </xsd:documentation>
                 </xsd:annotation>                
             </xsd:enumeration>
@@ -133,7 +133,7 @@
             <xsd:enumeration value="any_changes">
                 <xsd:annotation>
                     <xsd:documentation xml:lang="en">
-                        The field is changed/increment for all changes of any kind.
+                        The field is changed/incremented for all changes of any kind.
                     </xsd:documentation>
                 </xsd:annotation>
             </xsd:enumeration>

@@ -12,30 +12,11 @@
     <Assurance>undefined</Assurance>
     <State>draft</State>
 
-    <Type name="MajorZeroVersionTriple_T">
+    <Type name="PrereleaseVersionTriple_T">
         <Sequence>
             <Field name="MAJOR" type="numeric" fragment="spec-item-4">
                 <ChangeRule>constant</ChangeRule>
                 <Literal>0</Literal>
-            </Field>
-            <Delim>.</Delim>
-            <Field name="MINOR" type="numeric" fragment="spec-item-4">
-                <ChangeRule>arbitrary</ChangeRule>
-                <UnsignedIntegerTransition/>
-            </Field>
-            <Delim>.</Delim>
-            <Field name="PATCH" type="numeric" fragment="spec-item-4">
-                <ChangeRule>arbitrary</ChangeRule>
-                <UnsignedIntegerTransition/>
-            </Field>
-        </Sequence>
-    </Type>
-    
-    <Type name="PrereleaseVersionTriple_T">
-        <Sequence>
-            <Field name="MAJOR" type="numeric" fragment="spec-item-8">
-                <ChangeRule>arbitrary</ChangeRule>
-                <UnsignedIntegerTransition/>
             </Field>
             <Delim>.</Delim>
             <Field name="MINOR" type="numeric" fragment="spec-item-7">
@@ -130,16 +111,16 @@
     <!-- Put it all together -->
     <OneOf>
         <Sequence>
-            <TypeRef ref="MajorZeroVersionTriple_T"/>
+            <TypeRef ref="PrereleaseVersionTriple_T"/>
+            <TypeRef ref="PrerleasePlusMetaTags_T"/>
+        </Sequence>
+        <Sequence>
+            <TypeRef ref="PrereleaseVersionTriple_T"/>
             <TypeRef ref="PrerleasePlusMetaTags_T"/>
         </Sequence>
         <Sequence>
             <TypeRef ref="ReleaseVersionTriple_T"/>
             <TypeRef ref="BuildMeta_T"/>
-        </Sequence>
-        <Sequence>
-            <TypeRef ref="PrereleaseVersionTriple_T"/>
-            <TypeRef ref="PrerleasePlusMetaTags_T"/>
         </Sequence>
     </OneOf>
     
